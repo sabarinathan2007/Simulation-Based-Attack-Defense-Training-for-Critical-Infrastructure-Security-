@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Mosquitto MQTT Broker
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: smart_home_mqtt_broker
+    ports:
+      # Standard MQTT port for client connections
+      - "1883:1883"
+      # WebSocket port for browser connections
+      - "9001:9001"
+    volumes:
+      # Mount mosquitto config file
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      # Persist data
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+    environment:
+      - TZ=UTC
+    networks:
+      - smart_home_network
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-h", "localhost", "-t", "$SYS/#", "-C", "1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Flask Backend (optional - can run locally during development)
+  # Uncomment to run backend in Docker
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: smart_home_backend
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     mosquitto:
+  #       condition: service_healthy
+  #   environment:
+  #     - MQTT_BROKER=mosquitto
+  #     - MQTT_PORT=1883
+  #   networks:
+  #     - smart_home_network
+  #   volumes:
+  #     - ./backend:/app
+
+volumes:
+  mosquitto_data:
+    driver: local
+  mosquitto_logs:
+    driver: local
+
+networks:
+  smart_home_network:
+    driver: bridge
