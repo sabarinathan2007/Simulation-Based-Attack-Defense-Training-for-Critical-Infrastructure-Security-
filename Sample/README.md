@@ -1,36 +1,36 @@
-# 🏠 Smart Home Cybersecurity Training Platform
+# Smart Home Cybersecurity Training Platform - Complete Guide
 
-An interactive web-based platform for learning and demonstrating cybersecurity concepts in IoT and smart home systems. Users can control simulated smart devices, perform authorized operations, execute attacks, and observe system defenses in action.
+**Version:** 1.0  
+**Last Updated:** 2024  
+**Purpose:** Interactive platform for learning cybersecurity in IoT/Smart Home systems
 
-## 📋 Overview
+---
 
-This platform provides a hands-on learning environment where:
-- **Users can safely control smart devices** (lights, thermostat, locks) via MQTT
-- **Attacks can be simulated** by sending unauthorized MQTT messages
-- **Defenses are demonstrated** with real-time attack detection and security alerts
-- **All events are logged** for audit and educational purposes
+## 📑 TABLE OF CONTENTS
 
-## 🏗️ Architecture
+1. [Overview](#overview)
+2. [What You'll Learn](#what-youll-learn)
+3. [System Architecture](#system-architecture)
+4. [Complete Installation Guide](#complete-installation-guide)
+5. [How to Use the Platform](#how-to-use-the-platform)
+6. [Security Features Explained](#security-features-explained)
+7. [API Documentation](#api-documentation)
+8. [Troubleshooting Guide](#troubleshooting-guide)
+9. [Project Files & Structure](#project-files--structure)
+10. [Deployment & Production](#deployment--production)
+11. [Testing Scenarios](#testing-scenarios)
+12. [FAQs & Best Practices](#faqs--best-practices)
 
-```
-┌─────────────────────────────────────────────────────┐
-│            React Frontend (Port 3000)                │
-│  • Login/Dashboard/Devices/Attack/Defense Pages     │
-│  • MQTT.js WebSocket Connection                     │
-└──────────────────┬──────────────────────────────────┘
-                   │
-        ┌──────────┴──────────┐
-        │                     │
-        ▼                     ▼
-┌──────────────────┐   ┌──────────────────────────┐
-│ Flask Backend    │   │  Mosquitto MQTT Broker   │
-│ (Port 5000)      │   │  • Standard: 1883        │
-│                  │   │  • WebSocket: 9001       │
-│ • Sessions       │   │                          │
-│ • API Routes     │   │  Device Topics:          │
-│ • Authorization  │   │  • /devices/light1       │
-│ • Attack Detect. │   │  • /devices/light2       │
-│ • Logging        │   │  • /devices/thermostat   │
+---
+
+## 🎯 OVERVIEW
+
+### What is This Platform?
+
+This is an **interactive, web-based learning environment** where you can:
+- ✅ Safely control simulated smart home devices (lights, thermostat, locks)
+- ✅ Perform authorized operations through a secure dashboard
+- ✅ Execute educational cyberattacks to understand
 └────────┬─────────┘   │  • /devices/lock         │
          │             └──────────────────────────┘
          │
